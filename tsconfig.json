@@ -3,11 +3,14 @@
     "baseUrl": "./src",
     "esModuleInterop": true,
     "jsx": "react",
+    "strict": true,
     "lib": [      
       "es2017",
       "dom"
     ],
-    "strict": true,
+    "types": [
+      "node"
+    ],
     "paths": {
       "~/*": ["./*"]
     },
