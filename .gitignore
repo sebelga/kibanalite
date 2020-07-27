@@ -2,6 +2,10 @@ node_modules
 
 . editorconfig
 
+.vscode
 .parcel-cache
 
 dist/
+src/core
+src/plugins
+x-pack
