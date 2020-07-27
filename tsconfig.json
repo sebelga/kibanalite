@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./src",
+    "esModuleInterop": true,
+    "jsx": "react",
+    "lib": [      
+      "es2017",
+      "dom"
+    ],
+    "strict": true,
+    "paths": {
+      "~/*": ["./*"]
+    },
+  },
+  "include": [
+    "src/**/*",
+    "@types"
+  ]
+}
