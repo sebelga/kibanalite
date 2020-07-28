@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "baseUrl": "./src",
+    "baseUrl": ".",
     "esModuleInterop": true,
     "jsx": "react",
     "strict": true,
@@ -12,11 +12,10 @@
       "node"
     ],
     "paths": {
-      "~/*": ["./*"]
-    },
-  },
-  "include": [
-    "src/**/*",
-    "@types"
-  ]
+      "~/*": ["./*"],
+      "src/*": ["./src/*"],
+      "kibana/public": ["./src/core/public"],
+      "kibana/server": ["./src/core/server"],
+    }
+  }
 }

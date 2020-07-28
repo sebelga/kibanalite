@@ -2,12 +2,20 @@ const fs = require('fs');
 const path = require('path');
 const shell = require('shelljs');
 
-export const getKibanaPluginPath = (pluginId, isXpack = true) => {
-  return path.resolve(__dirname, '../..', 'kibana', isXpack ? 'x-pack/plugins' : 'src/plugins', pluginId);
+export const resolveKibanaPath = (...args) => {
+  return path.resolve(__dirname, '../..', 'kibana', ...args);
+};
+
+export const resolvePath = (...args) => {
+  return path.resolve(__dirname, '..', ...args);
 }
 
-export const getPluginPath = (pluginId, isXpack = true) => {
-  return path.resolve(__dirname, '..', isXpack ? 'x-pack/plugins' : 'src/plugins', pluginId);
+export const getKibanaPluginPath = (pluginId, isXpack = false) => {
+  return resolveKibanaPath(isXpack ? 'x-pack' : 'src', 'plugins', pluginId);
+}
+
+export const getPluginPath = (pluginId, isXpack = false) => {
+  return resolvePath(isXpack ? 'x-pack' : 'src', 'plugins', pluginId);
 }
 
 export const mkdir = (dirpath) => {
@@ -34,20 +42,26 @@ export const createSymlink = (from, to) => {
   shell.ln('-s', from, to);
 };
 
-export const createPluginSymlink = (pluginId, isXpack = true) => {
+export const createPluginSymlink = (pluginId, isXpack = false) => {
   const kibanaPluginPath = getKibanaPluginPath(pluginId, isXpack);
   const pluginPath = getPluginPath(pluginId, isXpack);
+
   createSymlink(kibanaPluginPath, pluginPath);
 }
 
 const createSymlinks = () => {
-  // Symlink to Core
-  const coreSrc = path.resolve(__dirname, '../..', 'kibana', 'src', 'core');
-  const coreDest = path.resolve(__dirname, '..', 'src', 'core');
+  // --- Required plugins
+
+  // core
+  const coreSrc = resolveKibanaPath('src', 'core');
+  const coreDest = resolvePath('src', 'core');
   createSymlink(coreSrc, coreDest);
 
-  createPluginSymlink('es_ui_shared', false);
-  createPluginSymlink('snapshot_restore');
+  // --- Current workspace plugins
+  createPluginSymlink('es_ui_shared');
+  createPluginSymlink('usage_collection');
+  createPluginSymlink('management');
+  createPluginSymlink('snapshot_restore', true);
 };
 
 // createSymlinks();

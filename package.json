@@ -39,5 +39,11 @@
     "moment": "^2.27.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1"
+  },
+  "alias": {
+    "src/core/public": { "fileName": "./src/core/public/index.ts" },
+    "kibana/public": { "fileName": "./src/core/public/index.ts" },
+    "src/core/server": { "fileName": "./src/core/server/index.ts" },
+    "kibana/server": { "fileName": "./src/core/server/index.ts" }
   }
 }
