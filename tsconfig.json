@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "baseUrl": ".",
+    "baseUrl": "./src",
     "esModuleInterop": true,
     "jsx": "react",
     "strict": true,
@@ -13,12 +13,12 @@
     ],
     "paths": {
       "~/*": ["./*"],
-      "src/*": ["./src/client/kibana/src/*"],
-      "kibana/public": ["./src/client/kibana/src/core/public"],
-      "kibana/server": ["./src/client/kibana/src/core/server"],
-      "@kbn/i18n": ["./src/client/mocks/@kbn-i18n"],
-      "@kbn/i18n/react": ["./src/client/mocks/@kbn-i18n-react"],
+      "src/*": ["./client/kibana/src/*"],
+      "kibana/public": ["./client/kibana/src/core/public"],
+      "kibana/server": ["./client/kibana/src/core/server"],
+      "@kbn/i18n": ["./client/mocks/@kbn-i18n"],
+      "@kbn/i18n/react": ["./client/mocks/@kbn-i18n-react"],
     }
   },
-  "exclude" : ["src/**/*.test.ts"]
+  "exclude" : ["node_modules", "src/**/*.test.ts"]
 }

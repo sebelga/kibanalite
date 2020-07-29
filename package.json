@@ -7,6 +7,7 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "startClient": "parcel serve ./src/client/index.html",
+    "startServer": "nodemon ./src/server/index.ts",
     "updateKibana": "node scripts/kibana update",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -32,10 +33,12 @@
     "@types/react-router-dom": "^5.1.5",
     "del": "^5.1.0",
     "ncp": "^2.0.0",
+    "nodemon": "^2.0.4",
     "parcel": "next",
     "sass": "^1.26.10",
     "shelljs": "^0.8.4",
     "ts-loader": "^8.0.1",
+    "ts-node": "^8.10.2",
     "typescript": "^3.9.7"
   },
   "dependencies": {
@@ -43,6 +46,7 @@
     "@elastic/eui": "^27.2.0",
     "@testing-library/react-hooks": "^3.4.1",
     "brace": "^0.11.1",
+    "fastify": "^3.1.1",
     "history": "^4.9.0",
     "lodash": "^4.17.19",
     "moment": "^2.27.0",
