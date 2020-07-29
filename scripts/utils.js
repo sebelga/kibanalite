@@ -1,34 +1,39 @@
 const fs = require('fs');
-const path = require('path');
-const shell = require('shelljs');
+const { promisify } = require('util');
+const { resolve } = require('path');
+const { ncp } = require('ncp');
 
-export const resolveKibanaPath = (...args) => {
-  return path.resolve(__dirname, '../..', 'kibana', ...args);
+const copyFolder = promisify(ncp);
+
+const ROOT_DIR = resolve(__dirname, '..');
+const KIBANA_DIR = resolve(__dirname, '../..', 'kibana');
+
+const resolveKibanaPath = (...args) => {
+  return resolve(KIBANA_DIR, ...args);
 };
 
-export const resolvePath = (...args) => {
-  return path.resolve(__dirname, '..', ...args);
+const resolvePath = (...args) => {
+  return resolve(ROOT_DIR, ...args);
 }
 
-export const getKibanaPluginPath = (pluginId, isXpack = false) => {
+const getKibanaPluginPath = (pluginId, isXpack = false) => {
   return resolveKibanaPath(isXpack ? 'x-pack' : 'src', 'plugins', pluginId);
 }
 
-export const getPluginPath = (pluginId, isXpack = false) => {
-  return resolvePath(isXpack ? 'x-pack' : 'src', 'plugins', pluginId);
+const getPluginPath = (pluginId, isXpack = false) => {
+  return resolvePath('src', 'kibana', isXpack ? 'x-pack' : 'src', 'plugins', pluginId);
 }
 
-export const mkdir = (dirpath) => {
+const mkdir = (dirpath) => {
   fs.mkdirSync(dirpath, { recursive: true })
 } 
 
-export const createSymlink = (from, to) => {
+const createSymlink = (from, to) => {
   if (!fs.existsSync(from)) {
     throw new Error(`Can't create symlink to ${from}. Directory does not exists.`)
   }
 
   if (fs.existsSync(to)) {
-    // Symlink already exists, don't go any further
     fs.unlinkSync(to);
   }
 
@@ -39,10 +44,11 @@ export const createSymlink = (from, to) => {
   mkdir(dirDest);
 
   // Create symlink
-  shell.ln('-s', from, to);
+  fs.symlinkSync(from, to);
+  // shell.ln('-s', from, to);
 };
 
-export const createPluginSymlink = (pluginId, isXpack = false) => {
+const createPluginSymlink = (pluginId, isXpack = false) => {
   const kibanaPluginPath = getKibanaPluginPath(pluginId, isXpack);
   const pluginPath = getPluginPath(pluginId, isXpack);
 
@@ -50,18 +56,26 @@ export const createPluginSymlink = (pluginId, isXpack = false) => {
 }
 
 const createSymlinks = () => {
-  // --- Required plugins
+  // test_utils
+  const testUtilsSrc = resolveKibanaPath('x-pack', 'test_utils');
+  const testUtilsDest = resolvePath('x-pack', 'test_utils');
+  createSymlink(testUtilsSrc, testUtilsDest);
 
-  // core
-  const coreSrc = resolveKibanaPath('src', 'core');
-  const coreDest = resolvePath('src', 'core');
-  createSymlink(coreSrc, coreDest);
-
-  // --- Current workspace plugins
+  // es_ui_shared
   createPluginSymlink('es_ui_shared');
-  createPluginSymlink('usage_collection');
-  createPluginSymlink('management');
-  createPluginSymlink('snapshot_restore', true);
 };
 
-// createSymlinks();
+const init = async (pluginId, isXpack = false) => {
+  const from = getKibanaPluginPath(pluginId, isXpack);
+  const to = getPluginPath(pluginId, isXpack);
+
+  if (fs.existsSync(to)) {
+    console.warn(`Destination folder "${to}" already exists, copy aborted.`);
+  } else {
+    await copyFolder(from, to);
+  }
+
+  createSymlinks();
+}
+
+// init('snapshot_restore', true);

@@ -24,9 +24,12 @@
     "@parcel/resolver-default": "next",
     "@parcel/transformer-typescript-tsc": "next",
     "@parcel/validator-typescript": "next",
+    "@types/history": "^4.7.3",
     "@types/node": "^14.0.26",
     "@types/react": "^16.9.43",
     "@types/react-dom": "^16.9.8",
+    "@types/react-router-dom": "^5.1.5",
+    "ncp": "^2.0.0",
     "parcel": "next",
     "sass": "^1.26.10",
     "shelljs": "^0.8.4",
@@ -36,14 +39,21 @@
   "dependencies": {
     "@elastic/datemath": "^5.0.3",
     "@elastic/eui": "^27.2.0",
+    "@testing-library/react-hooks": "^3.4.1",
+    "brace": "^0.11.1",
+    "history": "^4.9.0",
+    "lodash": "^4.17.19",
     "moment": "^2.27.0",
+    "query-string": "^6.13.1",
     "react": "^16.13.1",
-    "react-dom": "^16.13.1"
+    "react-dom": "^16.13.1",
+    "react-router-dom": "^5.2.0"
   },
   "alias": {
-    "src/core/public": { "fileName": "./src/core/public/index.ts" },
-    "kibana/public": { "fileName": "./src/core/public/index.ts" },
-    "src/core/server": { "fileName": "./src/core/server/index.ts" },
-    "kibana/server": { "fileName": "./src/core/server/index.ts" }
+    "kibana/public": "./src/kibana/src/core/public",
+    "kibana/server": "./src/kibana/src/core/server",
+    "src": "./src/kibana/src",
+    "@kbn/i18n/react": "./src/mocks/@kbn-i18n-react",
+    "@kbn/i18n": "./src/mocks/@kbn-i18n"
   }
 }

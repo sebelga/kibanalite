@@ -13,9 +13,12 @@
     ],
     "paths": {
       "~/*": ["./*"],
-      "src/*": ["./src/*"],
-      "kibana/public": ["./src/core/public"],
-      "kibana/server": ["./src/core/server"],
+      "src/*": ["./src/kibana/src/*"],
+      "kibana/public": ["./src/kibana/src/core/public"],
+      "kibana/server": ["./src/kibana/src/core/server"],
+      "@kbn/i18n": ["./src/mocks/@kbn-i18n"],
+      "@kbn/i18n/react": ["./src/mocks/@kbn-i18n-react"],
     }
-  }
+  },
+  "exclude" : ["src/**/*.test.ts"]
 }
