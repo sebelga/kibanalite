@@ -8,27 +8,27 @@ const ncpPrimisify = promisify(ncp);
 const ROOT_DIR = resolve(__dirname, '..');
 const KIBANA_DIR = resolve(__dirname, '../..', 'kibana');
 
-export const resolveKibanaPath = (...args) => {
+const resolveKibanaPath = (...args) => {
   return resolve(KIBANA_DIR, ...args);
 };
 
-export const resolvePath = (...args) => {
+const resolvePath = (...args) => {
   return resolve(ROOT_DIR, ...args);
 }
 
-export const getKibanaPluginPath = (pluginId, isXpack = false) => {
+const getKibanaPluginPath = (pluginId, isXpack = false) => {
   return resolveKibanaPath(isXpack ? 'x-pack' : 'src', 'plugins', pluginId);
 }
 
-export const getPluginPath = (pluginId, isXpack = false) => {
+const getPluginPath = (pluginId, isXpack = false) => {
   return resolvePath('src', 'kibana', isXpack ? 'x-pack' : 'src', 'plugins', pluginId);
 }
 
-export const mkdir = (dirpath) => {
+const mkdir = (dirpath) => {
   fs.mkdirSync(dirpath, { recursive: true })
 }
 
-export const copyFolder = async (from, to) => {
+const copyFolder = async (from, to) => {
   if (fs.existsSync(to)) {
     console.warn(`Destination folder "${to}" already exists, copy aborted.`);
   } else {
@@ -36,7 +36,7 @@ export const copyFolder = async (from, to) => {
   }
 }
 
-export const createSymlink = (from, to) => {
+const createSymlink = (from, to) => {
   if (!fs.existsSync(from)) {
     throw new Error(`Can't create symlink to ${from}. Directory does not exists.`)
   }
@@ -55,9 +55,20 @@ export const createSymlink = (from, to) => {
   fs.symlinkSync(from, to);
 };
 
-export const createPluginSymlink = (pluginId, isXpack = false) => {
+const createPluginSymlink = (pluginId, isXpack = false) => {
   const kibanaPluginPath = getKibanaPluginPath(pluginId, isXpack);
   const pluginPath = getPluginPath(pluginId, isXpack);
 
   createSymlink(kibanaPluginPath, pluginPath);
+}
+
+module.exports = {
+  resolveKibanaPath,
+  resolvePath,
+  getKibanaPluginPath,
+  getPluginPath,
+  mkdir,
+  copyFolder,
+  createSymlink,
+  createPluginSymlink
 }

@@ -1,4 +1,4 @@
-import {
+const {
   getPluginPath,
   getKibanaPluginPath,
   createSymlink,
@@ -6,12 +6,12 @@ import {
   copyFolder,
   resolvePath,
   resolveKibanaPath,
-} from "./utils";
+} = require("./utils");
 
-export const createSymlinks = () => {
+const createSymlinks = () => {
   // test_utils
   const testUtilsSrc = resolveKibanaPath("x-pack", "test_utils");
-  const testUtilsDest = resolvePath("x-pack", "test_utils");
+  const testUtilsDest = resolvePath('src', 'kibana', "x-pack", "test_utils");
   createSymlink(testUtilsSrc, testUtilsDest);
 
   // es_ui_shared

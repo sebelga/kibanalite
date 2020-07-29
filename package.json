@@ -7,6 +7,7 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "start": "parcel serve ./src/index.html",
+    "updateKibana": "node scripts/kibana update",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -29,6 +30,7 @@
     "@types/react": "^16.9.43",
     "@types/react-dom": "^16.9.8",
     "@types/react-router-dom": "^5.1.5",
+    "del": "^5.1.0",
     "ncp": "^2.0.0",
     "parcel": "next",
     "sass": "^1.26.10",
