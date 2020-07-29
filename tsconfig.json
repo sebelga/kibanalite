@@ -13,11 +13,11 @@
     ],
     "paths": {
       "~/*": ["./*"],
-      "src/*": ["./src/kibana/src/*"],
-      "kibana/public": ["./src/kibana/src/core/public"],
-      "kibana/server": ["./src/kibana/src/core/server"],
-      "@kbn/i18n": ["./src/mocks/@kbn-i18n"],
-      "@kbn/i18n/react": ["./src/mocks/@kbn-i18n-react"],
+      "src/*": ["./src/client/kibana/src/*"],
+      "kibana/public": ["./src/client/kibana/src/core/public"],
+      "kibana/server": ["./src/client/kibana/src/core/server"],
+      "@kbn/i18n": ["./src/client/mocks/@kbn-i18n"],
+      "@kbn/i18n/react": ["./src/client/mocks/@kbn-i18n-react"],
     }
   },
   "exclude" : ["src/**/*.test.ts"]

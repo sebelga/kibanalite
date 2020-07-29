@@ -6,7 +6,7 @@
   "module": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "start": "parcel serve ./src/index.html",
+    "startClient": "parcel serve ./src/client/index.html",
     "updateKibana": "node scripts/kibana update",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -52,10 +52,10 @@
     "react-router-dom": "^5.2.0"
   },
   "alias": {
-    "kibana/public": "./src/kibana/src/core/public",
-    "kibana/server": "./src/kibana/src/core/server",
-    "src": "./src/kibana/src",
-    "@kbn/i18n/react": "./src/mocks/@kbn-i18n-react",
-    "@kbn/i18n": "./src/mocks/@kbn-i18n"
+    "kibana/public": "./src/client/kibana/src/core/public",
+    "kibana/server": "./src/client/kibana/src/core/server",
+    "src": "./src/client/kibana/src",
+    "@kbn/i18n/react": "./src/client/mocks/@kbn-i18n-react",
+    "@kbn/i18n": "./src/client/mocks/@kbn-i18n"
   }
 }
