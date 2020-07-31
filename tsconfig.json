@@ -2,6 +2,8 @@
   "compilerOptions": {
     "baseUrl": "./src",
     "esModuleInterop": true,
+    "sourceMap": true,
+    "inlineSourceMap": true,
     "jsx": "react",
     "strict": true,
     "allowJs": true,
@@ -9,10 +11,10 @@
     "downlevelIteration": true,
     "lib": [      
       "es2017",
+      "dom"
     ],
     "types": [
-      "node",
-      "browser"
+      "node"
     ],
     "paths": {
       "~/*": ["./*"],

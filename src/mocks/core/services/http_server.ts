@@ -63,6 +63,15 @@ class Router {
     });
   }
 
+  put({ path }: RouteOptions, handler: any) {
+    this.server.route({
+      method: "PUT",
+      url: parseRoutePath(path),
+      preHandler: this.getPreRouteHandler(handler),
+      handler: this.routeHandler,
+    });
+  }
+
   getPreRouteHandler(handler: any): FastifyRouteOptions["preHandler"] {
     return async (request, reply, next) => {
       await this.callRequestHandler(request, handler);
@@ -90,7 +99,12 @@ class Router {
       },
     };
 
-    return await handler(this.ctx, {}, response);
+    const forwardedRequest = {
+      body: request.body,
+      query: request.query,
+      params: request.params,
+    }
+    return await handler(this.ctx, forwardedRequest, response);
   }
 }
 
