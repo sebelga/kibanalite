@@ -4,21 +4,25 @@
     "esModuleInterop": true,
     "jsx": "react",
     "strict": true,
+    "allowJs": true,
+    // Provide full support for iterables in for..of, spread and destructuring when targeting ES5 or ES3.
+    "downlevelIteration": true,
     "lib": [      
       "es2017",
-      "dom"
     ],
     "types": [
-      "node"
+      "node",
+      "browser"
     ],
     "paths": {
       "~/*": ["./*"],
-      "src/*": ["./client/kibana/src/*"],
-      "kibana/public": ["./client/kibana/src/core/public"],
-      "kibana/server": ["./client/kibana/src/core/server"],
-      "@kbn/i18n": ["./client/mocks/@kbn-i18n"],
-      "@kbn/i18n/react": ["./client/mocks/@kbn-i18n-react"],
+      "src/*": ["./kibana/src/*"],
+      "kibana/public": ["./kibana/src/core/public"],
+      "kibana/server": ["./kibana/src/core/server"],
+      "@kbn/i18n": ["./mocks/@kbn-i18n"],
+      "@kbn/i18n/*": ["./mocks/@kbn-i18n/*"]
     }
   },
+  
   "exclude" : ["node_modules", "src/**/*.test.ts"]
 }
