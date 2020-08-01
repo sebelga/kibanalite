@@ -72,6 +72,15 @@ class Router {
     });
   }
 
+  delete({ path }: RouteOptions, handler: any) {
+    this.server.route({
+      method: "DELETE",
+      url: parseRoutePath(path),
+      preHandler: this.getPreRouteHandler(handler),
+      handler: this.routeHandler,
+    });
+  }
+
   getPreRouteHandler(handler: any): FastifyRouteOptions["preHandler"] {
     return async (request, reply, next) => {
       await this.callRequestHandler(request, handler);
@@ -104,6 +113,7 @@ class Router {
       query: request.query,
       params: request.params,
     }
+  
     return await handler(this.ctx, forwardedRequest, response);
   }
 }

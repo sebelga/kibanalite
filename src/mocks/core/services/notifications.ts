@@ -1,3 +1,10 @@
 export const notifications = {
-  toasts: {},
+  toasts: {
+    addSuccess(message: string) {
+      console.log(`[Toast Success] ${message}`);
+    },
+    addDanger(message: string) {
+      console.log(`[Toast Danger] ${message}`);
+    }
+  },
 };
