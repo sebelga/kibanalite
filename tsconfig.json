@@ -1,9 +1,8 @@
 {
   "compilerOptions": {
-    "baseUrl": "./src",
+    "baseUrl": ".",
     "esModuleInterop": true,
     "sourceMap": true,
-    "inlineSourceMap": true,
     "jsx": "react",
     "strict": true,
     "allowJs": true,
@@ -18,13 +17,12 @@
     ],
     "paths": {
       "~/*": ["./*"],
-      "src/*": ["./kibana/src/*"],
-      "kibana/public": ["./kibana/src/core/public"],
-      "kibana/server": ["./kibana/src/core/server"],
-      "@kbn/i18n": ["./mocks/@kbn-i18n"],
-      "@kbn/i18n/*": ["./mocks/@kbn-i18n/*"]
+      "src/*": ["./src/kibana/src/*"],
+      "kibana/public": ["./src/kibana/src/core/public"],
+      "kibana/server": ["./src/kibana/src/core/server"],
+      "@kbn/i18n": ["./src/mocks/@kbn-i18n"],
+      "@kbn/i18n/*": ["./src/mocks/@kbn-i18n/*"]
     }
   },
-  
-  "exclude" : ["node_modules", "src/**/*.test.ts"]
+  "include": ["src"]
 }
