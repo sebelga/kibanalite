@@ -1,0 +1,1 @@
+export { FormattedMessage } from './formatted_message';

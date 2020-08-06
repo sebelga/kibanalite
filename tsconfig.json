@@ -1,9 +1,13 @@
 {
   "compilerOptions": {
-    "baseUrl": "./src",
+    "baseUrl": ".",
     "esModuleInterop": true,
+    "sourceMap": true,
     "jsx": "react",
     "strict": true,
+    "allowJs": true,
+    // Provide full support for iterables in for..of, spread and destructuring when targeting ES5 or ES3.
+    "downlevelIteration": true,
     "lib": [      
       "es2017",
       "dom"
@@ -12,11 +16,13 @@
       "node"
     ],
     "paths": {
-      "~/*": ["./*"]
-    },
+      "~/*": ["./*"],
+      "src/*": ["./src/kibana/src/*"],
+      "kibana/public": ["./src/kibana/src/core/public"],
+      "kibana/server": ["./src/kibana/src/core/server"],
+      "@kbn/i18n": ["./src/mocks/@kbn-i18n"],
+      "@kbn/i18n/*": ["./src/mocks/@kbn-i18n/*"]
+    }
   },
-  "include": [
-    "src/**/*",
-    "@types"
-  ]
+  "include": ["src"]
 }

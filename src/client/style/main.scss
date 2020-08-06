@@ -1,0 +1,23 @@
+#appHeader {
+    background-image: url("../img/header_fill.png");
+    background-repeat: repeat-x;
+    background-size: contain;
+    background-position-y: 1px;
+}
+
+#appMain {
+    padding-right: $euiSize;
+    display: flex;
+    height: 100%;
+}
+
+#appSidebar {
+    flex: 0 0 210px;
+    background-image: url("../img/sidebar_bkg.png");
+    background-size: 207px 846px;
+    background-position-y: 2px;
+}
+
+#app {
+    flex: 1;
+}

@@ -1,26 +1,47 @@
 const fs = require('fs');
-const path = require('path');
-const shell = require('shelljs');
+const { promisify } = require('util');
+const { resolve } = require('path');
+const { ncp } = require('ncp');
 
-export const getKibanaPluginPath = (pluginId, isXpack = true) => {
-  return path.resolve(__dirname, '../..', 'kibana', isXpack ? 'x-pack/plugins' : 'src/plugins', pluginId);
+const ncpPrimisify = promisify(ncp);
+
+const ROOT_DIR = resolve(__dirname, '..');
+const KIBANA_DIR = resolve(__dirname, '../..', 'kibana');
+
+const resolveKibanaPath = (...args) => {
+  return resolve(KIBANA_DIR, ...args);
+};
+
+const resolvePath = (...args) => {
+  return resolve(ROOT_DIR, ...args);
 }
 
-export const getPluginPath = (pluginId, isXpack = true) => {
-  return path.resolve(__dirname, '..', isXpack ? 'x-pack/plugins' : 'src/plugins', pluginId);
+const getKibanaPluginPath = (pluginId, isXpack = false) => {
+  return resolveKibanaPath(isXpack ? 'x-pack' : 'src', 'plugins', pluginId);
 }
 
-export const mkdir = (dirpath) => {
+const getPluginPath = (pluginId, isXpack = false) => {
+  return resolvePath('src', 'kibana', isXpack ? 'x-pack' : 'src', 'plugins', pluginId);
+}
+
+const mkdir = (dirpath) => {
   fs.mkdirSync(dirpath, { recursive: true })
-} 
+}
 
-export const createSymlink = (from, to) => {
+const copyFolder = async (from, to) => {
+  if (fs.existsSync(to)) {
+    console.warn(`Destination folder "${to}" already exists, copy aborted.`);
+  } else {
+    return await ncpPrimisify(from, to);
+  }
+}
+
+const createSymlink = (from, to) => {
   if (!fs.existsSync(from)) {
     throw new Error(`Can't create symlink to ${from}. Directory does not exists.`)
   }
 
   if (fs.existsSync(to)) {
-    // Symlink already exists, don't go any further
     fs.unlinkSync(to);
   }
 
@@ -31,23 +52,23 @@ export const createSymlink = (from, to) => {
   mkdir(dirDest);
 
   // Create symlink
-  shell.ln('-s', from, to);
+  fs.symlinkSync(from, to);
 };
 
-export const createPluginSymlink = (pluginId, isXpack = true) => {
+const createPluginSymlink = (pluginId, isXpack = false) => {
   const kibanaPluginPath = getKibanaPluginPath(pluginId, isXpack);
   const pluginPath = getPluginPath(pluginId, isXpack);
+
   createSymlink(kibanaPluginPath, pluginPath);
 }
 
-const createSymlinks = () => {
-  // Symlink to Core
-  const coreSrc = path.resolve(__dirname, '../..', 'kibana', 'src', 'core');
-  const coreDest = path.resolve(__dirname, '..', 'src', 'core');
-  createSymlink(coreSrc, coreDest);
-
-  createPluginSymlink('es_ui_shared', false);
-  createPluginSymlink('snapshot_restore');
-};
-
-// createSymlinks();
+module.exports = {
+  resolveKibanaPath,
+  resolvePath,
+  getKibanaPluginPath,
+  getPluginPath,
+  mkdir,
+  copyFolder,
+  createSymlink,
+  createPluginSymlink
+}

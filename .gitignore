@@ -1,11 +1,13 @@
 node_modules
 
 . editorconfig
+**/.DS_Store
 
 .vscode
 .parcel-cache
 
 dist/
-src/core
-src/plugins
-x-pack
+src/kibana/src/plugins
+src/kibana/x-pack/plugins
+
+test_utils
